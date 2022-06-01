@@ -1,8 +1,8 @@
 const endpoint = "https://www.functionup.org"
 const batch = "radon"
 
-const log = function() {
-    console.log('I am inside the log function')
+const log = welcome() {
+    console.log('I am Ritika and a part of FunctionUp Radon Cohort.')
 }
 
 module.exports.endpoint = endpoint

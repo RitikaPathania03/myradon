@@ -1,5 +1,6 @@
 const express = require('express');
 const externalModule = require('./logger')
+const externalModule= require( './helper')
 
 const router = express.Router();
 
@@ -24,6 +25,8 @@ router.get('/test-me3', function (req, res) {
 router.get('/test-me4', function (req, res) {
     res.send('My last api!')
 });
-
+router.get('/PrintDate', function (req, res){ 
+    res.send('02-06-2022')
+})
 module.exports = router;
 // adding this comment for no reason

@@ -17,13 +17,13 @@ const userSchema = new mongoose.Schema( {
     // isIndian: Boolean,
     // parentsInfo: {
     //     motherName: String,
-    //     fatherName: String,
-    //     siblingName: String
+    //     module.exports = .model('User', userSchema)fatherName: String,
+    //     siblingName: Stringmongoose
     // },
     // cars: [ String  ]
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', userSchema) //users
+ //users
 
 
 

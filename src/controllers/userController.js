@@ -85,7 +85,34 @@ const updateUser = async function (req, res) {
   res.send({ status: updatedUser, data: updatedUser });
 };
 
+
+//3.creating DeleteUser function that takes userId in request params and marks the isDeleted attribute for a user as true
+
+
+const deleteUser=async function(req,res){
+  //checking if token is present
+  let token = req.headers["x-Auth-token"];
+ if (!token) {
+ return res.send({ status: false, msg: "token must be present" })};
+//verifying the token
+   decodedtoken = jwt.verify(token, "functionup-radon");
+  if (!decodedToken){
+    return res.send({ status: false, msg: "token is invalid" })};
+//find the user you want to delete and return errror message if not present
+let userId=req.body.userId
+ let user= await userModel.findById(userId)
+ if(!user){
+  return res.send("No such user exists");
+}
+///marking the isDeleted attribute for a user as true
+let UserProfile=req.body;
+let deletedUser=await userModel.findByIdAndUpdate(UserProfile.isDeleted==true);
+return res.send({data: deletedUser })
+
+
+};
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteUser=deleteUser;

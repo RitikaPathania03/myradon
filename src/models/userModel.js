@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const userId= mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema( {
+    _id: userId,
     firstName: String,
     lastName: String,
     mobile: {
@@ -15,6 +17,10 @@ const userSchema = new mongoose.Schema( {
         enum: ["male", "female", "other"]
     },
     age: Number,
+    isDeleted:{
+        type:Boolean,
+        default: false
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema)

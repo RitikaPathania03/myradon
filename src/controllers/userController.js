@@ -42,8 +42,8 @@ const loginUser = async function (req, res) {
 };
 
 const getUserData = async function (req, res) {
-  let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
+  let token = req.headers["x-auth-token"];
+//  if (!token) token = req.headers["x-auth-token"];
 
   //If no token is present in the request header return error
   if (!token) return res.send({ status: false, msg: "token must be present" });
@@ -59,7 +59,7 @@ const getUserData = async function (req, res) {
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
-  let userId = req.params.userId;
+  let userId = req.body._id;
   let userDetails = await userModel.findById(userId);
   if (!userDetails)
     return res.send({ status: false, msg: "No such user exists" });
@@ -91,23 +91,23 @@ const updateUser = async function (req, res) {
 
 const deleteUser=async function(req,res){
   //checking if token is present
-  let token = req.headers["x-Auth-token"];
+  let token = req.headers["x-auth-token"];
  if (!token) {
  return res.send({ status: false, msg: "token must be present" })};
 //verifying the token
-   decodedtoken = jwt.verify(token, "functionup-radon");
+  let decodedToken = jwt.verify(token, "functionup-radon");
   if (!decodedToken){
     return res.send({ status: false, msg: "token is invalid" })};
 //find the user you want to delete and return errror message if not present
-let userId=req.body.userId
+let userId=req.params.userId
  let user= await userModel.findById(userId)
  if(!user){
   return res.send("No such user exists");
 }
 ///marking the isDeleted attribute for a user as true
 let UserProfile=req.body;
-let deletedUser=await userModel.findByIdAndUpdate(UserProfile.isDeleted==true);
-return res.send({data: deletedUser })
+let deletedUser=await userModel.updateOne(UserProfile.isDeleted==true);
+return res.send({status:true, data: deletedUser })
 
 
 };

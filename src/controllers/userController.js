@@ -38,7 +38,7 @@ const loginUser = async function (req, res) {
     "functionup-radon"
   );
   res.setHeader("x-auth-token", token);
-  res.status(201).send({ status: true, data: token });
+  res.status(201).send({ status: true, token: token });
 }catch(error)
 {res.status(500).send({msg:"SERVER ERROR2", error:error.message})
 }
@@ -101,7 +101,7 @@ let deleteUser= async function(req,res){
   res.status(200).send({status:true,data:dUser});
   
   } catch(error){
-  res.status(500).send({msg:"SERVER ERROR5", error:error.message})
+  res.status(500).send({msg:"SERVER ERROR5", error: error.message})
 }
 };
 

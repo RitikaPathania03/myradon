@@ -1,7 +1,7 @@
-const jwt= require('jsonwebtoken')
-const userModel=require('../models/userModel')
+const jwt= require("jsonwebtoken");
+const userModel=require("../models/userModel" );
 
-const authenticate = (req, req, next)=>{
+const authenticate = (req, req, next){
   try{
   let token = req.headers["x-auth-token"];
   if (!token)
@@ -15,17 +15,22 @@ const authenticate = (req, req, next)=>{
 }catch(error){res.status(500).send({msg:"SERVER ERROR8", error:error.message})
 }
 };
-const authorise = function(req, res, next) {
+const authorise = function(req, res, next){
   try{
+   
+
     // comapre the logged in user's id and the id in request
     let userToBeModified = req.params.userId
+    
     //userId for the logged-in user
     let userLoggedIn = decodedToken.userId
+    // if(userLoggedIn!=decodedToken.userId)
+    // return res.status(401).send({msg:Unauthorise, error=error.message})
 
     //userId comparision to check if the logged-in user is requesting for their own data
     if(userToBeModified != userLoggedIn){
 
-    return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})}
+    return res.status(401).send({ msg: 'User logged is not AUTHORISED'})}
 
      else{ 
     next()

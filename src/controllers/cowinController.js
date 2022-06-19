@@ -1,5 +1,5 @@
 let axios = require("axios");
-const { get } = require("../routes/route");
+const routes = require("../routes/route");
 
 
 let getStates = async function (req, res) {

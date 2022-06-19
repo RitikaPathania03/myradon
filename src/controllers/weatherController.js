@@ -6,12 +6,12 @@ const route = require("../routes/route");
 
 const getWeatherOfLondon = async function (req,res){
     try{
-        let q= req.query.q
-        let appId=req.query.appId
-        console.log(`query params are: ${q} ${appId}`)
+        let q= req.query.london
+        let appId=req.query.eb6ba4466671fdfbfc72bc91307443f3
+        // console.log(`query params are: ${q} ${appId}`)
       let options={
         method: "get",
-        url:"https://api.openweathermap.org/data/2.5/weather?q={q}&appid={appId}"
+        url:"https://api.openweathermap.org/data/2.5/weather?q=${q}&appId=${appId}"
       }
       let result = await axios(options)
       console.log(result.data)
@@ -26,23 +26,24 @@ const getWeatherOfLondon = async function (req,res){
 
 let getSortedCities= async function(req,res){
     try{
-        let cities=["bengaluru","mumbai","kolkata","Chennai","London","Moscow"]
-        let citiesObjArr=[];
+        let cities=["Bengaluru","Mumbai","Kolkata","Chennai","London","Moscow"]
+        let cityObjArray=[];
         for (i=0;i=cities.length;i++){
-        let obj={cities:cities[i]}
-        let resp=await axios.get('https://api.openweathermap.org/data/2.5/weather?q={cities[i]}&appid={appId}')
+        let obj={city: cities[i]}
+        let resp=await axios.get('https://api.openweathermap.org/data/2.5/weather?q=${cities[i]}&appid=eb6ba4466671fdfbfc72bc91307443f3')
         console.log(resp.data.main.temp)
        obj.temp=resp.data.main.temp
-       citiesObjArr.push(obj)
+       cityObjArray.push(obj)
         }
-        let sorted=citiesObjArr.sort(function(a,b){
-            return a.temp-b.temp})
+        let sorted=cityObjArray.sort(function(a,b){
+            return a.temp - b.temp})
 
             console.log(sorted)
-            res.status(200).send({status: false, data:sorted})
+            res.status(200).send({status: true, data:sorted})
             
         }
         catch(err){
+            console.log(err)
             res.status(500).send({status:false, msg: "SERVER ERROR"})
         }
         }

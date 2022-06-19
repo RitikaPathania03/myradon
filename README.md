@@ -1,4 +1,4 @@
-# Promise has typically 3 states
+    # Promise has typically 3 states
 - Pending : not awaited and hence has not completed yet ( e.g. typically when you dont await an axios or db call)
 - Rejected: When promise failed ( wrong url | server down etc)
 - Fulfilled: Promise completed succesfully (e.g. db call has completed and returned a result succesfully)

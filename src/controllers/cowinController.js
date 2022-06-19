@@ -1,4 +1,5 @@
-let axios = require("axios")
+let axios = require("axios");
+const { get } = require("../routes/route");
 
 
 let getStates = async function (req, res) {
@@ -25,7 +26,7 @@ let getDistricts = async function (req, res) {
         let id = req.params.stateId
         let options = {
             method: "get",
-            url: `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${id}`
+            url: `https://cdn-api.co-vin.in/api/v2/admin/location/districts/id=${id}`
         }
         let result = await axios(options);
         console.log(result)
@@ -79,7 +80,26 @@ let getOtp = async function (req, res) {
 }
 
 
+const getVaccinationSessions= async function(req,res){
+    try{
+        let district_id= req.query.districtId
+        let date= req.query.date
+        console.log(`query params are: ${district_id} ${date}`)
+        let options={
+            method: "get",
+            url:'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict/district_id=${distict_id}&date=${date}'
+        }
+    let result =await axios(options)
+    console.log(result.data)
+    res.status(200).send({ msg: result.data })
+}catch(err){
+    console.log(err)
+    res.status(500).send({msg:"SERVER ERROR"})
+}
+}
+
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
 module.exports.getByPin = getByPin
 module.exports.getOtp = getOtp
+module.exports.getVaccinationSessions=getVaccinationSessions
